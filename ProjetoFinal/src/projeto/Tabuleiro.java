@@ -1,12 +1,10 @@
-package dominio;
-
-import operacao.Algoritmo;
+package projeto;
 
 //Define um tabuleiro de dimensão n
 public class Tabuleiro {
 
-    public boolean[][] tabuleiro;
-    public int tamanho;
+    private boolean[][] tabuleiro;
+    private int tamanho;
 
     public Tabuleiro(int tamanho) {
         this.tamanho = tamanho;
@@ -14,6 +12,9 @@ public class Tabuleiro {
         zeraTabuleiro();
     }
 
+    public int getTamanho() {
+        return tamanho;
+    }
     public void zeraTabuleiro() {
         for (int y = 0; y < tamanho; y++) {
             for (int x = 0; x < tamanho; x++) {
@@ -24,7 +25,7 @@ public class Tabuleiro {
 
     public void atualizaTabuleiro(int posicoesY[]) {
         zeraTabuleiro();
-        for (int i = 0; i < Algoritmo.getN(); i++) {
+        for (int i = 0; i < 8; i++) {
             if (posicoesY[i] != -1) {
                 tabuleiro[i][posicoesY[i]] = true;
             }
