@@ -85,7 +85,7 @@ public class IndividuoTabuleiro extends Individuo<Tabuleiro,Integer> {
     }
     
     public double getAptidao() {
-        return getFenotipo();
+        return 1/(getFenotipo() + 0.001);
     }
     
     // Método para retornar o tamanho do cromossomo.
@@ -96,7 +96,7 @@ public class IndividuoTabuleiro extends Individuo<Tabuleiro,Integer> {
     // Método para clonar um indivíduo.
     public IndividuoTabuleiro clonar() {
         Tabuleiro cromossomoClonado = new Tabuleiro(8);
-        cromossomoClonado = cromossomo;
+        cromossomoClonado = cromossomo.clonar();
         
         int[] posicaoYClonada = new int[posicoesY.length];
         
@@ -120,22 +120,22 @@ public class IndividuoTabuleiro extends Individuo<Tabuleiro,Integer> {
     
     public int gerarYAleatorioExclusivo() {
         int y;
-        Random r;
-        boolean encontrou;
+        Random r = new Random();
+        y = r.nextInt(8);
 
-        do {
-            r = new Random();
-            y = r.nextInt(8);
-            encontrou = false;
-
-            for (int i = 0; i < 8; i++) {
-                if (posicoesY[i] == y) {
-                    encontrou = true;
-                    break;
-                }
-            }
-
-        } while (encontrou);
+//        do {
+//            r = new Random();
+//            y = r.nextInt(8);
+//            encontrou = false;
+//
+//            for (int i = 0; i < 8; i++) {
+//                if (posicoesY[i] == y) {
+//                    encontrou = true;
+//                    break;
+//                }
+//            }
+//
+//        } while (encontrou);
 
         return y;
     }

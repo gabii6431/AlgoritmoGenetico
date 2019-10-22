@@ -25,7 +25,7 @@ public class Tabuleiro {
 
     public void atualizaTabuleiro(int posicoesY[]) {
         zeraTabuleiro();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < tamanho; i++) {
             if (posicoesY[i] != -1) {
                 tabuleiro[i][posicoesY[i]] = true;
             }
@@ -42,6 +42,17 @@ public class Tabuleiro {
             livre = false;
         }
         return livre;
+    }
+    
+    public Tabuleiro clonar(){
+        Tabuleiro tabuleiroClonado = new Tabuleiro(8);
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                tabuleiroClonado.tabuleiro[i][j] = tabuleiro[i][j];
+            }  
+        }
+        
+        return tabuleiroClonado;
     }
 
     @Override

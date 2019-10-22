@@ -24,7 +24,6 @@ public class AlgoritmoGenetico {
             while(novaPopulacao.size() < populacao.size()) {
                 IndividuoTabuleiro i1 = (IndividuoTabuleiro) op.roleta(populacao);
                 IndividuoTabuleiro i2 = (IndividuoTabuleiro) op.roleta(populacao);
-                System.out.println("sai");
                 IndividuoTabuleiro filhos[] = op.crossover(i1, i2);
                 op.mutacao(filhos[0], probabilidadeMutacao);
                 op.mutacao(filhos[1], probabilidadeMutacao);
@@ -68,22 +67,22 @@ public class AlgoritmoGenetico {
     
     public int gerarYAleatorioExclusivo(int[] posicoesY) {
         int y;
-        Random r;
-        boolean encontrou;
+        Random r = new Random();
+        y = r.nextInt(8);
 
-        do {
-            r = new Random();
-            y = r.nextInt(8);
-            encontrou = false;
-
-            for (int i = 0; i < 8; i++) {
-                if (posicoesY[i] == y) {
-                    encontrou = true;
-                    break;
-                }
-            }
-
-        } while (encontrou);
+//        do {
+//            r = new Random();
+//            y = r.nextInt(8);
+//            encontrou = false;
+//
+//            for (int i = 0; i < 8; i++) {
+//                if (posicoesY[i] == y) {
+//                    encontrou = true;
+//                    break;
+//                }
+//            }
+//
+//        } while (encontrou);
 
         return y;
     }
