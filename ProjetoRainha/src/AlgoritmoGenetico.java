@@ -16,6 +16,10 @@ public class AlgoritmoGenetico {
         inicializarPopulacao(tamanhoPopulacao);
     }
     
+    public ArrayList<Individuo> getPopulacao(){
+        return populacao;
+    }
+    
     public void evoluir(int numGeracoes) {
         Operacoes op = new Operacoes();
         while(numGeracoes > 0) {
@@ -38,10 +42,13 @@ public class AlgoritmoGenetico {
     
     public void mostrarPopulacao() {
         for(Individuo i:populacao) {
-            i.mostrarIndividuo();
+            i.mostrarIndividuo();               
         }
     }
     
+    public Tabuleiro pegaTabuleiro(){
+        return populacao.get(0).mostraTabuleiro();
+    }
     private void inicializarPopulacao(int tamanhoPopulacao) {
         Random r = new Random();
         
@@ -56,35 +63,12 @@ public class AlgoritmoGenetico {
 
             //inicializou a posicao das rainhas de forma aleatoria
             for (int t = 0; t < posicaoY.length; t++) {
-                posicaoY[t] = gerarYAleatorioExclusivo(posicaoY);
+                posicaoY[t] = r.nextInt(8);
                 cromossomo.atualizaTabuleiro(posicaoY);
             }
-            
             IndividuoTabuleiro individuo = new IndividuoTabuleiro(cromossomo, posicaoY);
             populacao.add(individuo);
         }
-    }
-    
-    public int gerarYAleatorioExclusivo(int[] posicoesY) {
-        int y;
-        Random r = new Random();
-        y = r.nextInt(8);
-
-//        do {
-//            r = new Random();
-//            y = r.nextInt(8);
-//            encontrou = false;
-//
-//            for (int i = 0; i < 8; i++) {
-//                if (posicoesY[i] == y) {
-//                    encontrou = true;
-//                    break;
-//                }
-//            }
-//
-//        } while (encontrou);
-
-        return y;
     }
     
 }

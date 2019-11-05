@@ -60,7 +60,7 @@ public class Tabuleiro {
         String r = "";
         for (int y = 0; y < tamanho; y++) {
             for (int x = 0; x < tamanho; x++) {
-                if (tabuleiro[x][y]) {
+                if (tabuleiro[y][x]) {
                     r += " x";
                 } else {
                     r += " o";

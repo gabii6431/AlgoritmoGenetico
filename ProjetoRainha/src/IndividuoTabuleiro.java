@@ -122,21 +122,6 @@ public class IndividuoTabuleiro extends Individuo<Tabuleiro,Integer> {
         int y;
         Random r = new Random();
         y = r.nextInt(8);
-
-//        do {
-//            r = new Random();
-//            y = r.nextInt(8);
-//            encontrou = false;
-//
-//            for (int i = 0; i < 8; i++) {
-//                if (posicoesY[i] == y) {
-//                    encontrou = true;
-//                    break;
-//                }
-//            }
-//
-//        } while (encontrou);
-
         return y;
     }
     
@@ -147,5 +132,10 @@ public class IndividuoTabuleiro extends Individuo<Tabuleiro,Integer> {
         System.out.printf(" Aptidão = " + getAptidao());
         
         System.out.println();
+    }
+    
+    @Override
+    public Tabuleiro mostraTabuleiro(){
+        return cromossomo;
     }
 }
