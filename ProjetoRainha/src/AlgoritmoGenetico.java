@@ -49,6 +49,10 @@ public class AlgoritmoGenetico {
     }
     
     public Tabuleiro pegaTabuleiro(){
+        for (int i = 0; i < populacao.size(); i++) {
+            if((int)populacao.get(i).getFenotipo() == 0)
+                return populacao.get(i).mostraTabuleiro();
+        }
         return populacao.get(0).mostraTabuleiro();
     }
     private void inicializarPopulacao(int tamanhoPopulacao) {
