@@ -299,7 +299,7 @@ public class TabuleiroInterface extends JFrame {
     }
     
     public void mostrarSolucaoAlgoritmoGenetico(Tabuleiro tabuleiro) {
-        System.out.println(tabuleiro.toString());
+        //System.out.println(tabuleiro.toString());
         for(int i = 0; i < dimensao; ++i) 
         {
             for(int j = 0; j < dimensao; ++j) 
@@ -356,28 +356,35 @@ public class TabuleiroInterface extends JFrame {
         
     }
     
-    public static void main(String args[]) {
-        
-        TabuleiroInterface tabuleiroEstrela = new TabuleiroInterface(8,1);
-        tabuleiroEstrela.setTitle("A*");
-        No solucaoAEstrela = tabuleiroEstrela.buscaAEstrela();
-        
-        Stack<EstadoTabuleiro> passosAEstrela = new Stack();
-        while(solucaoAEstrela != null) {
-            passosAEstrela.push(solucaoAEstrela.getEstadoTabuleiro());
-            solucaoAEstrela = solucaoAEstrela.getPai();
-        }
-        
-        tabuleiroEstrela.mostrarSolucao(passosAEstrela);
-        
-        //Tabuleiro Algoritmo Genetico
-        TabuleiroInterface tabuleiroGenetico1 = new TabuleiroInterface(8,2);
-        tabuleiroGenetico1.setTitle("Algoritmo Genetico");
-        
-        AlgoritmoGenetico ag = new AlgoritmoGenetico(100, 7);
-        tabuleiroGenetico1.mostrarSolucaoAlgoritmoGenetico(ag.pegaTabuleiro());
-        ag.evoluir(2000);
-        tabuleiroGenetico1.mostrarSolucaoAlgoritmoGenetico(ag.pegaTabuleiro());
-    }
+//    public static void main(String args[]) {
+//        
+//        TabuleiroInterface tabuleiroEstrela = new TabuleiroInterface(8,1);
+//        tabuleiroEstrela.setTitle("A*");
+//        long start_A = System.currentTimeMillis();
+//        No solucaoAEstrela = tabuleiroEstrela.buscaAEstrela();
+//        long elapsed_A = System.currentTimeMillis() - start_A;
+//        
+//        Stack<EstadoTabuleiro> passosAEstrela = new Stack();
+//        while(solucaoAEstrela != null) {
+//            passosAEstrela.push(solucaoAEstrela.getEstadoTabuleiro());
+//            solucaoAEstrela = solucaoAEstrela.getPai();
+//        }
+//        
+//        tabuleiroEstrela.mostrarSolucao(passosAEstrela);
+//        
+//        //Tabuleiro Algoritmo Genetico
+//        TabuleiroInterface tabuleiroGenetico1 = new TabuleiroInterface(8,2);
+//        tabuleiroGenetico1.setTitle("Algoritmo Genetico");
+//        
+//        AlgoritmoGenetico ag = new AlgoritmoGenetico(100, 7);
+//        tabuleiroGenetico1.mostrarSolucaoAlgoritmoGenetico(ag.pegaTabuleiro());
+//        long start_genetico = System.currentTimeMillis();
+//        ag.evoluir(2000);
+//        long elapsed_genetico = System.currentTimeMillis() - start_genetico;
+//        tabuleiroGenetico1.mostrarSolucaoAlgoritmoGenetico(ag.pegaTabuleiro());
+//        
+//        System.out.println("Tempo de execucao A*: " + elapsed_A + " ms");
+//        System.out.println("Tempo de execucao Algoritmo Genético: " + elapsed_genetico +" ms");
+//    }
     
 }

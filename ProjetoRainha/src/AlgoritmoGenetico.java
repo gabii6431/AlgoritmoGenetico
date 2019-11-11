@@ -9,10 +9,12 @@ public class AlgoritmoGenetico {
     
     private ArrayList<Individuo> populacao;
     private int probabilidadeMutacao;
+    private int tamanhoTabuleiro;
     
-    public AlgoritmoGenetico(int tamanhoPopulacao,int probabilidadeMutacao) {
+    public AlgoritmoGenetico(int tamanhoPopulacao,int probabilidadeMutacao, int tamanhoTabuleiro) {
         populacao = new ArrayList<Individuo>();
         this.probabilidadeMutacao = probabilidadeMutacao;
+        this.tamanhoTabuleiro = tamanhoTabuleiro;
         inicializarPopulacao(tamanhoPopulacao);
     }
     
@@ -23,7 +25,7 @@ public class AlgoritmoGenetico {
     public void evoluir(int numGeracoes) {
         Operacoes op = new Operacoes();
         while(numGeracoes > 0) {
-            System.out.println("Geração ("+numGeracoes+")");
+            //System.out.println("Geração ("+numGeracoes+")");
             ArrayList<Individuo> novaPopulacao = new ArrayList<Individuo>();
             while(novaPopulacao.size() < populacao.size()) {
                 IndividuoTabuleiro i1 = (IndividuoTabuleiro) op.roleta(populacao);
@@ -53,8 +55,8 @@ public class AlgoritmoGenetico {
         Random r = new Random();
         
         for(int i = 0; i < tamanhoPopulacao; ++i) {
-            Tabuleiro cromossomo = new Tabuleiro(8);
-            int[] posicaoY = new int[8];
+            Tabuleiro cromossomo = new Tabuleiro(this.tamanhoTabuleiro);
+            int[] posicaoY = new int[this.tamanhoTabuleiro];
             
             //inicializa o vetor posicaoY (onde armazena a posicao da rainha no tabuleiro de acordo com a sua linha)
             for (int z = 0; z < posicaoY.length; z++) {
@@ -63,7 +65,7 @@ public class AlgoritmoGenetico {
 
             //inicializou a posicao das rainhas de forma aleatoria
             for (int t = 0; t < posicaoY.length; t++) {
-                posicaoY[t] = r.nextInt(8);
+                posicaoY[t] = r.nextInt(this.tamanhoTabuleiro);
                 cromossomo.atualizaTabuleiro(posicaoY);
             }
             IndividuoTabuleiro individuo = new IndividuoTabuleiro(cromossomo, posicaoY);

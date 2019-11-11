@@ -45,7 +45,7 @@ public class Tabuleiro {
     }
     
     public Tabuleiro clonar(){
-        Tabuleiro tabuleiroClonado = new Tabuleiro(8);
+        Tabuleiro tabuleiroClonado = new Tabuleiro(tamanho);
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 tabuleiroClonado.tabuleiro[i][j] = tabuleiro[i][j];
