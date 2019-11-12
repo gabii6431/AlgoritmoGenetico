@@ -2,18 +2,18 @@ package ProgramacaoDinamica;
 
 public class Main 
 {
-     public static void main(String args[])
+    static int quantidadeItens = 4;
+    static int [] peso = {2,1,6,5};
+    static int [] valor = {10,7,25,24};
+    static int capacidadeMochila = 7;    
+    static int[][] mochila = new int[quantidadeItens+1][capacidadeMochila+1];
+    
+    public static void main(String args[])
     {
-        int quantidadeItens = 5;
-        int [] peso = {5,4,3,2,1};
-        int [] valor = {4,6,5,3,1};
-        int capacidadeMochila = 10;
-        
-        int[][] mochila = new int[capacidadeMochila+1][quantidadeItens+1];
-        
-        for (int i = 0; i <= capacidadeMochila; ++i)
+    
+         for (int i = 0; i <= quantidadeItens; ++i)
         {
-            for (int j = 0; j <= quantidadeItens; ++j)
+            for (int j = 0; j <= capacidadeMochila; ++j)
             {
                 if(j == 0 || i == 0)
                 {
@@ -21,16 +21,24 @@ public class Main
                 }
                 else 
                 {
-                    mochila[i][j] = mochila[i][j-1];
-                    if(peso[j-1] <= i)
+                    mochila[i][j] = mochila[i-1][j];
+                    if(peso[i-1] <= j)
                     {
-                        mochila[i][j] = maxNumero(mochila[i][j-1],mochila[i-peso[j-1]][j-1]+valor[j-1]);
+                        mochila[i][j] = maxNumero(mochila[i-1][j-peso[i-1]]+valor[i-1],mochila[i-1][j]);
                     }
                 }
             }
         }
+        //imprimeMatriz(mochila);
+        int[] x = new int[quantidadeItens+1];
+        int[] itensMochila = solucao(x, quantidadeItens, capacidadeMochila);
         
-        System.out.println("Valor max: "+mochila[capacidadeMochila][quantidadeItens]);     
+        for (int i = 0; i < x.length; i++) 
+        {
+            System.out.print(itensMochila[i] + " ");
+        }
+        System.out.println("");
+   
     }
      
     public static int maxNumero(int a, int b)
@@ -44,5 +52,35 @@ public class Main
             return b;
         }
     }
+    
+    public static void imprimeMatriz(int mochila[][])
+    {
+        for (int i = 0; i < mochila.length; i++) 
+         {
+             for (int j = 0; j < mochila[i].length; j++) 
+             {
+                 System.out.print(mochila[i][j] + " " );
+             }
+             System.out.println("");
+        }
+    }
+    
+    public static int[] solucao(int x[], int i, int p)
+    {
+        if(i != 0)
+        {
+            if(mochila[i][p] == mochila[i-1][p])
+            {
+               x[i] = 0;
+               solucao(x, i-1, p);
+            }else
+            {
+                x[i] = 1;
+                solucao(x, i-1, p-peso[i-1]);
+            }
+        }   
+        return x;    
+    }
+    
     
 }
