@@ -13,4 +13,5 @@ public abstract class Individuo<T,E> {
     public abstract E getFenotipo();
     public abstract double getAptidao();
     public abstract void mostrarIndividuo();
+    public abstract Tabuleiro mostraTabuleiro();
 }

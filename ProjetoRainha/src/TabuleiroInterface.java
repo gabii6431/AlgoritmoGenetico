@@ -21,39 +21,48 @@ public class TabuleiroInterface extends JFrame {
     
     private EstadoTabuleiro estado;
     private int dimensao;
+    private Tabuleiro tabuleiroGenetico;
     
-    public TabuleiroInterface(int dimensao) {
-        this.estado = new EstadoTabuleiro(dimensao);
-        this.estado.inicializarCasasComRainha();
-        this.estado.construirHeuristica();
+    public TabuleiroInterface(int dimensao,int tipo) {
+        this.tabuleiroGenetico = new Tabuleiro(dimensao);
+        this.estado = new EstadoTabuleiro(dimensao); //Cria o EstadoTabuleiro Inicial
+        this.estado.inicializarCasasComRainha(); //Coloca as rainhas em posições aleatórias
+        this.estado.construirHeuristica(); //Conta a quantidade de conflitos para cada posição do tabuleiro
         this.dimensao = dimensao;
-        inicializarTabuleiro();
+        inicializarTabuleiro(tipo); //Cria o Jframe para o tabuleiro
     }
     
-    public TabuleiroInterface(EstadoTabuleiro estado) {
-        this.dimensao = estado.getDimensaoTabuleiro();
-        this.estado = estado;
-        this.estado.construirHeuristica();
-        inicializarTabuleiro();
-    }
+//    public TabuleiroInterface(EstadoTabuleiro estado) {;
+//        this.dimensao = estado.getDimensaoTabuleiro();
+//        this.estado = estado;
+//        this.estado.construirHeuristica();
+//        inicializarTabuleiro();
+//    }
     
+    //mostra a quantidade de conflito de cada posição do tabuleiro (Tabuleiro A*)
     private void exibirHeuristica() {
         for(int i = 0; i < dimensao; ++i) {
             for(int j = 0; j< dimensao; ++j) {
-                casas[i][j].setText(estado.getHeuristica()[i][j]+"");
-                
+                casas[i][j].setText(estado.getHeuristica()[i][j]+""); 
             }
         }
     }
     
-    private void inicializarTabuleiro() {
+    //Cria JFrame para exibir o tabuleiro
+    private void inicializarTabuleiro(int tipo) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setSize(500,500);
-        setLayout(new GridLayout((dimensao+1),dimensao));
-        desenharCasas();
+        setLayout(new GridLayout(dimensao,dimensao));
+        if(tipo == 1){
+            desenharCasas();
+        }else{
+            desenharCasasGenetica();
+        }
+        
     }
     
+    //Cria os botões representando cada posição do tabuleiro A* e pinta de azul
     private void desenharCasas() {
         casas = new JButton[dimensao][dimensao];
         for(int i = 0; i < dimensao; ++i) {
@@ -67,13 +76,29 @@ public class TabuleiroInterface extends JFrame {
         desenharRainha();
     }
     
+    
+    //Cria botões representando cada posição do tabuleiro Genético e pinta de azul
+    private void desenharCasasGenetica() {
+        casas = new JButton[dimensao][dimensao];
+        for(int i = 0; i < dimensao; ++i) {
+            for(int j = 0; j < dimensao; ++j) {
+                casas[i][j] = new JButton();
+                add(casas[i][j]);
+                casas[i][j].setBackground(Color.BLUE);
+            }
+        }
+        validate();
+        desenharRainhaGenetico();
+    }
+    
+    //Coloca as rainhas e a quantidade de conflitos de cada posição
     private void desenharRainha() {
         exibirHeuristica();
         for(int i = 0; i < dimensao; ++i) {
             for(int j = 0; j < dimensao; ++j) {
                 casas[i][j].setBackground(Color.blue);
                 casas[i][j].setIcon(null);
-                addEvento(i,j);
+                addEvento(i,j,1);
                 if(estado.getCasas()[i][j] == 1) {
                     JButton casa = casas[i][j];
                     try {
@@ -92,25 +117,73 @@ public class TabuleiroInterface extends JFrame {
         
     }
     
-    private void pintarBotao(int i, int j, Color cor, boolean pintarAmeacas) {
+    private void desenharRainhaGenetico() {
+        for(int i = 0; i < dimensao; ++i) {
+            for(int j = 0; j < dimensao; ++j) {
+                casas[i][j].setBackground(Color.blue);
+                casas[i][j].setIcon(null);
+                addEvento(i,j,2);
+                if(tabuleiroGenetico.getTabuleiro()[i][j]) {
+                    JButton casa = casas[i][j];
+                    try {
+                        File imgFile = new File(getClass().getResource("img/rainha.png").getFile());
+                        Image img = new ImageIcon(Files.readAllBytes(imgFile.toPath())).getImage();
+                        img = img.getScaledInstance(casa.getWidth(), casa.getWidth(), java.awt.Image.SCALE_SMOOTH);
+                        casa.setIcon(new ImageIcon(img));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                casas[i][j].repaint();
+                casas[i][j].validate();
+            }
+        }
+        
+    }
+    
+    private void pintarBotao(int i, int j, Color cor, boolean pintarAmeacas, int tipo) {
         for(int k = 0; k < dimensao; ++k) {
             casas[i][k].setBackground(cor);
-            if(estado.getCasas()[i][k] == 1 && pintarAmeacas) {
-                casas[i][k].setBackground(Color.red);
+            if(tipo == 1){
+                if(estado.getCasas()[i][k] == 1 && pintarAmeacas) {
+                    casas[i][k].setBackground(Color.red);
+                }
             }
+            else{
+                if(tabuleiroGenetico.getTabuleiro()[i][k] && pintarAmeacas){
+                    casas[i][k].setBackground(Color.red);
+                }
+            }
+            
+            
         }
         for(int k = 0; k < dimensao; ++k) {
             casas[k][j].setBackground(cor);
-            if(estado.getCasas()[k][j] == 1 && pintarAmeacas) {
-                casas[k][j].setBackground(Color.red);
+            if(tipo == 1){
+               if(estado.getCasas()[k][j] == 1 && pintarAmeacas) {
+                    casas[k][j].setBackground(Color.red);
+                } 
             }
+            else{
+                if(tabuleiroGenetico.getTabuleiro()[k][j] && pintarAmeacas){
+                    casas[k][j].setBackground(Color.red);
+                }
+            }
+            
         }
         int l = i-1;
         int c = j-1;
         while(c >= 0 && l >= 0) {
             casas[l][c].setBackground(cor);
-            if(estado.getCasas()[l][c] == 1 && pintarAmeacas) {
-                casas[l][c].setBackground(Color.red);
+            if(tipo == 1){
+                if(estado.getCasas()[l][c] == 1 && pintarAmeacas) {
+                    casas[l][c].setBackground(Color.red);
+                }  
+            }
+            else{
+                if(tabuleiroGenetico.getTabuleiro()[l][c] && pintarAmeacas){
+                    casas[l][c].setBackground(Color.red);
+                }
             }
             c--;
             l--;
@@ -120,8 +193,15 @@ public class TabuleiroInterface extends JFrame {
         c = j+1;
         while(c < dimensao && l < dimensao) {
             casas[l][c].setBackground(cor);
-            if(estado.getCasas()[l][c] == 1 && pintarAmeacas) {
-                casas[l][c].setBackground(Color.red);
+            if(tipo == 1){
+               if(estado.getCasas()[l][c] == 1 && pintarAmeacas) {
+                    casas[l][c].setBackground(Color.red);
+                } 
+            }
+            else{
+               if(tabuleiroGenetico.getTabuleiro()[l][c] && pintarAmeacas){
+                    casas[l][c].setBackground(Color.red);
+                } 
             }
             c++;
             l++;
@@ -131,8 +211,15 @@ public class TabuleiroInterface extends JFrame {
         c = j+1;
         while(c < dimensao && l >= 0) {
             casas[l][c].setBackground(cor);
-            if(estado.getCasas()[l][c] == 1 && pintarAmeacas) {
-                casas[l][c].setBackground(Color.red);
+            if(tipo == 1){
+                if(estado.getCasas()[l][c] == 1 && pintarAmeacas) {
+                    casas[l][c].setBackground(Color.red);
+                }
+            }
+            else{
+               if(tabuleiroGenetico.getTabuleiro()[l][c] && pintarAmeacas){
+                    casas[l][c].setBackground(Color.red);
+                } 
             }
             c++;
             l--;
@@ -142,15 +229,22 @@ public class TabuleiroInterface extends JFrame {
         c = j-1;
         while(c >= 0 && l < dimensao) {
             casas[l][c].setBackground(cor);
-            if(estado.getCasas()[l][c] == 1 && pintarAmeacas) {
-                casas[l][c].setBackground(Color.red);
+            if(tipo == 1){
+                if(estado.getCasas()[l][c] == 1 && pintarAmeacas) {
+                    casas[l][c].setBackground(Color.red);
+                }
+            }
+            else{
+               if(tabuleiroGenetico.getTabuleiro()[l][c] && pintarAmeacas){
+                    casas[l][c].setBackground(Color.red);
+                } 
             }
             c--;
             l++;
         }
     }
     
-    private void addEvento(int i, int j) {
+    private void addEvento(int i, int j, int tipo) {
         JButton casa = casas[i][j];
         casa.addMouseListener(new MouseListener() {
             @Override
@@ -167,33 +261,54 @@ public class TabuleiroInterface extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent me) {
-                if(estado.getCasas()[i][j] == 1)
-                    pintarBotao(i, j, Color.YELLOW, true);
+                if(tipo == 1){
+                        if(estado.getCasas()[i][j] == 1){
+                        pintarBotao(i, j, Color.YELLOW, true, tipo);
+                    }
+                }
+                else{
+                        if(tabuleiroGenetico.getTabuleiro()[i][j]){
+                        pintarBotao(i, j, Color.YELLOW, true, tipo);
+                    }
+                }
+                
             }
 
             @Override
             public void mouseExited(MouseEvent me) {
-                pintarBotao(i, j, Color.BLUE, false);
+                pintarBotao(i, j, Color.BLUE, false,tipo);
             }
         });
     }
     
     public void mostrarSolucao(Stack<EstadoTabuleiro> passos) {
-        JButton solucao = new JButton("Solução");
-        solucao.setBounds(50,100,95,30);
-        add(solucao);
-        solucao.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-
-                estado = passos.get(0);
-                estado.mostrarEstado();
-                desenharRainha();
-                validate();
-
+        for(int i = 0; i < dimensao; ++i) {
+            for(int j = 0; j < dimensao; ++j) {
+                casas[i][j].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        if(!passos.empty()) {
+                            estado = passos.pop();
+                            desenharRainha();
+                            validate();
+                        }
+                    }
+                });
             }
-        });
-       
+        }
+    }
+    
+    public void mostrarSolucaoAlgoritmoGenetico(Tabuleiro tabuleiro) {
+        //System.out.println(tabuleiro.toString());
+        for(int i = 0; i < dimensao; ++i) 
+        {
+            for(int j = 0; j < dimensao; ++j) 
+            {
+                tabuleiroGenetico = tabuleiro;
+                desenharRainhaGenetico();
+                validate();
+            }
+        }
     }
     
     public No buscaAEstrela() {
@@ -241,19 +356,35 @@ public class TabuleiroInterface extends JFrame {
         
     }
     
-    public static void main(String args[]) {
-        
-        TabuleiroInterface t2 = new TabuleiroInterface(8);
-        t2.setTitle("A*");
-        No solucaoAEstrela = t2.buscaAEstrela();
-        
-        Stack<EstadoTabuleiro> passosAEstrela = new Stack();
-        while(solucaoAEstrela != null) {
-            passosAEstrela.push(solucaoAEstrela.getEstadoTabuleiro());
-            solucaoAEstrela = solucaoAEstrela.getPai();
-        }
-        
-        t2.mostrarSolucao(passosAEstrela);
-    }
+//    public static void main(String args[]) {
+//        
+//        TabuleiroInterface tabuleiroEstrela = new TabuleiroInterface(8,1);
+//        tabuleiroEstrela.setTitle("A*");
+//        long start_A = System.currentTimeMillis();
+//        No solucaoAEstrela = tabuleiroEstrela.buscaAEstrela();
+//        long elapsed_A = System.currentTimeMillis() - start_A;
+//        
+//        Stack<EstadoTabuleiro> passosAEstrela = new Stack();
+//        while(solucaoAEstrela != null) {
+//            passosAEstrela.push(solucaoAEstrela.getEstadoTabuleiro());
+//            solucaoAEstrela = solucaoAEstrela.getPai();
+//        }
+//        
+//        tabuleiroEstrela.mostrarSolucao(passosAEstrela);
+//        
+//        //Tabuleiro Algoritmo Genetico
+//        TabuleiroInterface tabuleiroGenetico1 = new TabuleiroInterface(8,2);
+//        tabuleiroGenetico1.setTitle("Algoritmo Genetico");
+//        
+//        AlgoritmoGenetico ag = new AlgoritmoGenetico(100, 7);
+//        tabuleiroGenetico1.mostrarSolucaoAlgoritmoGenetico(ag.pegaTabuleiro());
+//        long start_genetico = System.currentTimeMillis();
+//        ag.evoluir(2000);
+//        long elapsed_genetico = System.currentTimeMillis() - start_genetico;
+//        tabuleiroGenetico1.mostrarSolucaoAlgoritmoGenetico(ag.pegaTabuleiro());
+//        
+//        System.out.println("Tempo de execucao A*: " + elapsed_A + " ms");
+//        System.out.println("Tempo de execucao Algoritmo Genético: " + elapsed_genetico +" ms");
+//    }
     
 }
