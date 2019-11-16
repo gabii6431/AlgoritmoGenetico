@@ -3,12 +3,12 @@ package AlgoritmoGenetico;
 public class Individuo 
 {
     private int [] cromossomo;
-    private double [] peso;
-    private double [] valor;
-    private double capacidade;
+    private int [] peso;
+    private int [] valor;
+    private int capacidade;
 
     
-    public Individuo(int[] cromossomo, double[] peso, double[] valor, double capacidadeTotal)
+    public Individuo(int[] cromossomo, int[] peso, int[] valor, int capacidadeTotal)
     {
         this.cromossomo = cromossomo;
         this.peso = peso;
@@ -72,15 +72,17 @@ public class Individuo
         return cromossomo[pos];
     }
     
-    public void mostrarIndividuo() {
-        System.out.print("I = ");
-        for(int i = 0; i < cromossomo.length; ++i) 
-        {
-            System.out.print(" "+cromossomo[i]);
-        }
-        System.out.printf(" Peso = " +getPeso());
-        System.out.printf(" Fenótipo = " +getFenotipo());
+    public String resultadoIndividuo(){
         
-        System.out.println();
-    }        
+        String resultado = "";
+        for(int i = 0; i < cromossomo.length; ++i){
+            if(cromossomo[i] == 1){
+                resultado += String.valueOf(i+1);
+                if(i != cromossomo.length-1){
+                    resultado += " - ";
+                }
+            }
+        }
+        return resultado;
+    }
 }

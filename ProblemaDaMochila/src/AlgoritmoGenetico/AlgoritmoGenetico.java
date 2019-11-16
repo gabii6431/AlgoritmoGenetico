@@ -8,7 +8,7 @@ public class AlgoritmoGenetico
     private ArrayList<Individuo> populacao;
     private int probabilidadeMutacao;
 
-    public AlgoritmoGenetico(int tamanhoPopulacao,int probabilidadeMutacao, double[] peso, double[] valor, double capacidade, int qtdItens) 
+    public AlgoritmoGenetico(int tamanhoPopulacao,int probabilidadeMutacao, int[] peso, int[] valor, int capacidade, int qtdItens) 
     {
         populacao = new ArrayList<Individuo>();
         this.probabilidadeMutacao = probabilidadeMutacao;
@@ -34,15 +34,16 @@ public class AlgoritmoGenetico
         }
     }
     
-    public void mostrarPopulacao() 
-    {
-        for(Individuo i:populacao) 
-        {
-            i.mostrarIndividuo();
-        }
-    }
     
-    private void inicializarPopulacao(int tamanhoPopulacao, double[] peso, double[] valor, double capacidade, int qtdItens) 
+    
+    public String[] mostraResultado(){
+        String[] resultado = new String[populacao.size()];
+        for (int i = 0; i < populacao.size(); i++) {
+            resultado[i] = populacao.get(i).resultadoIndividuo();
+        }
+        return resultado;
+    }
+    private void inicializarPopulacao(int tamanhoPopulacao, int[] peso, int[] valor, int capacidade, int qtdItens) 
     {
         Random r = new Random();
         int tamCromossomo = qtdItens;
@@ -58,7 +59,7 @@ public class AlgoritmoGenetico
         }
     }
       // Efetua o crossover entre dois indivíduos
-    public Individuo[] crossover(Individuo i1,Individuo i2) 
+    private Individuo[] crossover(Individuo i1,Individuo i2) 
     {
         int tam = i1.getTamanhoCromossomo();
         
@@ -79,7 +80,7 @@ public class AlgoritmoGenetico
     
     // Método para efetuar a mutação sobre um indivíduo
     // o parâmetro probabilidade assume um valor [0,100]
-    public void mutacao(Individuo individuo,int probabilidade)
+    private void mutacao(Individuo individuo,int probabilidade)
     {    
         Random r = new Random();
         
