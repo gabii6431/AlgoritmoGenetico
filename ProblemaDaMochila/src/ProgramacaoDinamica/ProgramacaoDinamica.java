@@ -37,19 +37,23 @@ public class ProgramacaoDinamica {
     }
      
     public String mostraResultado(){
-        String resultado = "";
+        String resultado = "Valor: ";
+        resultado += String.valueOf(mochila[quantidadeItens][capacidadeMochila]);
+        resultado += " Itens: ";
         
         int[] x = new int[quantidadeItens+1];
         int[] itensMochila = solucao(x, quantidadeItens, capacidadeMochila);
         
-        for (int i = 0; i < x.length; i++) {
-            if(x[i] == 1){
-                resultado += String.valueOf(i);
-                if(i != x.length-1){
-                    resultado += " - ";
-                }
-                
-            }
+        for (int i = 1; i < x.length; i++) {
+            resultado += String.valueOf(x[i]);
+            resultado += " ";
+//            if(x[i] == 1){
+//                resultado += String.valueOf(i);
+//                if(i != x.length-1){
+//                    resultado += " - ";
+//                }
+//                
+//            }
         }
                 
         return resultado;

@@ -24,6 +24,7 @@ public class Individuo
         if(pesoAtual > capacidade)
         {
             return 0.0;
+            
         }
         for (int i = 0; i < valor.length; i++) 
         {
@@ -73,15 +74,24 @@ public class Individuo
     }
     
     public String resultadoIndividuo(){
+        double somatoria = 0.0;
+        for (int i = 0; i < valor.length; i++) 
+        {
+            somatoria += cromossomo[i] * valor[i];
+        }
         
-        String resultado = "";
+        String resultado = "Peso: " +this.getPeso() + " Valor: ";
+        resultado += String.valueOf(somatoria);
+        resultado += " Itens: ";
         for(int i = 0; i < cromossomo.length; ++i){
-            if(cromossomo[i] == 1){
-                resultado += String.valueOf(i+1);
-                if(i != cromossomo.length-1){
-                    resultado += " - ";
-                }
-            }
+            resultado+= String.valueOf(cromossomo[i]);
+            resultado+= " ";
+//            if(cromossomo[i] == 1){
+//                resultado += String.valueOf(i+1);
+//                if(i != cromossomo.length-1){
+//                    resultado += " - ";
+//                }
+//            }
         }
         return resultado;
     }

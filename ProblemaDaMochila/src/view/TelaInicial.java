@@ -8,13 +8,11 @@ package view;
 import AlgoritmoGenetico.AlgoritmoGenetico;
 import ProgramacaoDinamica.ProgramacaoDinamica;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -269,17 +267,22 @@ public class TelaInicial extends javax.swing.JFrame {
         txtTempoAG.setText("( "+String.valueOf(tempo_genetico)+" ms )");
         String[] resultado = ag.mostraResultado();
         outputAG.setText("");
+        System.out.println("Algoritmo Genetico");
         for (int i = 0; i < resultado.length; i++) {
-            outputAG.append(resultado[i]);
-            outputAG.append("\n");
+            System.out.print("["+i+"]");
+            System.out.println(resultado[i]);
+//            outputAG.append(resultado[i]);
+//            outputAG.append("\n");;
         }
         
         ProgramacaoDinamica pd = new ProgramacaoDinamica (this.pesoItens, this.valorItens, this.capacidadeMochila, this.quantidadeItens);
         long start_dinamico = System.currentTimeMillis();
         pd.executaAlgoritmo();
         long tempo_dinamico = System.currentTimeMillis() - start_dinamico;
+        System.out.println("\nProgramção dinamica: ");
+        System.out.println(pd.mostraResultado());
         txtTempoPD.setText("( "+String.valueOf(tempo_dinamico)+" ms )");
-        outputPD.setText(pd.mostraResultado());
+//        outputPD.setText(pd.mostraResultado());
         
         
     }//GEN-LAST:event_btnExecutarActionPerformed
@@ -319,22 +322,54 @@ public class TelaInicial extends javax.swing.JFrame {
         });
     }
     
+    
     public void trataArquivo(){
+//        /*
+//        Ordem do arquivo:
+//           -capacidade mochila
+//           -quantidade de itens
+//           -vetor de pessos
+//           -vetor de valores
+//       */
+//        try {
+//            FileReader arq = new FileReader(url);
+//            BufferedReader lerArq = new BufferedReader(arq);
+//            capacidadeMochila = Integer.parseInt(lerArq.readLine()); // lê a primeira linha
+//            quantidadeItens = Integer.parseInt(lerArq.readLine()); // lê a segunda linha
+//            String[] stringPesos = lerArq.readLine().split(" ");
+//            String[] stringValores = lerArq.readLine().split(" ");
+//            
+//            pesoItens = new int[quantidadeItens];
+//            valorItens = new int[quantidadeItens];
+//    
+//            int valor = stringValores.length;
+//            for (int i = 0; i < stringValores.length; i++) {
+//                pesoItens[i] = Integer.parseInt(stringPesos[i]);
+//                valorItens[i] = Integer.parseInt(stringValores[i]);
+//            }
+//            
+//            arq.close();
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
         try {
+            // Le o arquivo 3
             FileReader arq = new FileReader(url);
             BufferedReader lerArq = new BufferedReader(arq);
             capacidadeMochila = Integer.parseInt(lerArq.readLine()); // lê a primeira linha
-            quantidadeItens = Integer.parseInt(lerArq.readLine()); // lê a primeira linha
-            String[] stringPesos = lerArq.readLine().split(" ");
-            String[] stringValores = lerArq.readLine().split(" ");
+            quantidadeItens = Integer.parseInt(lerArq.readLine()); // lê a segunda linha
             
             pesoItens = new int[quantidadeItens];
             valorItens = new int[quantidadeItens];
     
-            int valor = stringValores.length;
-            for (int i = 0; i < stringValores.length; i++) {
-                pesoItens[i] = Integer.parseInt(stringPesos[i]);
-                valorItens[i] = Integer.parseInt(stringValores[i]);
+     
+            for (int i = 0; i < quantidadeItens; i++) {
+                String linhaLida[] = lerArq.readLine().split(" ");
+                valorItens[i] = Integer.parseInt(linhaLida[0]);
+                pesoItens[i] = Integer.parseInt(linhaLida[1]);
+               
             }
             
             arq.close();
@@ -342,7 +377,8 @@ public class TelaInicial extends javax.swing.JFrame {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-        }     
+        } 
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
