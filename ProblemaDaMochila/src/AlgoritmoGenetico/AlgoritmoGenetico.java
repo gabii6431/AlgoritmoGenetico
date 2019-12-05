@@ -7,6 +7,7 @@ public class AlgoritmoGenetico
 {
     private ArrayList<Individuo> populacao;
     private int probabilidadeMutacao;
+    private Individuo melhorIndividuo;
 
     public AlgoritmoGenetico(int tamanhoPopulacao,int probabilidadeMutacao, int[] peso, int[] valor, int capacidade, int qtdItens) 
     {
@@ -15,10 +16,8 @@ public class AlgoritmoGenetico
         inicializarPopulacao(tamanhoPopulacao, peso,valor,capacidade, qtdItens);
     }
     
-    public void evoluir(int numGeracoes) 
-    {
-        while(numGeracoes > 0) 
-        {
+    public void evoluir(int numGeracoes) {
+        while(numGeracoes > 0) {
             ArrayList<Individuo> novaPopulacao = new ArrayList<Individuo>();
             while(novaPopulacao.size() < populacao.size()) {
                 Individuo i1 = (Individuo) this.roleta(populacao);
@@ -32,32 +31,29 @@ public class AlgoritmoGenetico
             populacao = novaPopulacao;
             numGeracoes--;
         }
+        this.encontraMelhorIndividuo();
     }
     
-    
-    
-    public String[] mostraResultado(){
-        String[] resultado = new String[populacao.size()];
-        for (int i = 0; i < populacao.size(); i++) {
-            resultado[i] = populacao.get(i).resultadoIndividuo();
-        }
-        return resultado;
-    }
     private void inicializarPopulacao(int tamanhoPopulacao, int[] peso, int[] valor, int capacidade, int qtdItens) 
     {
         Random r = new Random();
         int tamCromossomo = qtdItens;
         
-        for(int i = 0; i < tamanhoPopulacao; ++i) {
-            int cromossomo[] = new int[tamCromossomo];
-            for(int j = 0; j < tamCromossomo; ++j) 
-            {
-                cromossomo[j] = r.nextInt(2);
+        for(int i = 0; i < tamanhoPopulacao; ++i) { 
+            int cromossomo[] = new int[tamCromossomo]; 
+            for(int j = 0; j < tamCromossomo; ++j)  
+            { 
+                cromossomo[j] = 0; 
             }
-            Individuo individuo = new Individuo(cromossomo, peso, valor, capacidade);
-            populacao.add(individuo);
-        }
+            int qntItensEscolhidos = (int) (tamCromossomo*0.01);
+            for (int j = 0; j < qntItensEscolhidos; j++) {
+                cromossomo[r.nextInt(tamCromossomo)] = 1;
+            }
+            Individuo individuo = new Individuo(cromossomo, peso, valor, capacidade); 
+            populacao.add(individuo); 
+        } 
     }
+    
       // Efetua o crossover entre dois indivíduos
     private Individuo[] crossover(Individuo i1,Individuo i2) 
     {
@@ -122,4 +118,41 @@ public class AlgoritmoGenetico
         }
         return null; 
     }
+    
+     public String[] mostraResultado(){
+        String[] resultado = new String[populacao.size()];
+        for (int i = 0; i < populacao.size(); i++) {
+            resultado[i] = populacao.get(i).resultadoIndividuo();
+        }
+        return resultado;
+    }
+     
+    public String getItensSolucao(){
+        return melhorIndividuo.getItensMochila();
+    }
+    
+    public String getValorSolucao(){
+        return String.valueOf(melhorIndividuo.getValor());
+    }
+    
+    public String getPesoSolucao(){
+        return String.valueOf(melhorIndividuo.getPeso());
+    }
+    
+    private void encontraMelhorIndividuo(){
+        int index = 0;
+        int maxValue = 0;
+        for (int i = 0; i < populacao.size(); i++) {
+            if(populacao.get(i).getAptidao() > maxValue){
+                index = i;
+                maxValue = populacao.get(i).getAptidao();
+            }
+        }
+        melhorIndividuo = populacao.get(index);
+    }
+    
+    public String imprimeMelhorIndividuo(){
+        return melhorIndividuo.resultadoIndividuo();
+    }
+    
 }

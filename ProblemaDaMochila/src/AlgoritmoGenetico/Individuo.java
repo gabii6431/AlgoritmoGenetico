@@ -16,14 +16,14 @@ public class Individuo
         this.capacidade = capacidadeTotal;
     }
     
-    public double getFenotipo()
+    public int getFenotipo()
     {
-        double fenotipo = 0.0;
-        double pesoAtual = getPeso();
+        int fenotipo = 0;
+        int pesoAtual = getPeso();
         
         if(pesoAtual > capacidade)
         {
-            return 0.0;
+            return 0;
             
         }
         for (int i = 0; i < valor.length; i++) 
@@ -33,19 +33,28 @@ public class Individuo
         return fenotipo;
     }
     
-    public double getAptidao()
+    public int getAptidao()
     {
         return getFenotipo();
     }
     
-    public double getPeso()
+    public int getPeso()
     {
-        double pesoAtual = 0.0;
+        int pesoAcumulado = 0;
         for (int i = 0; i < peso.length; i++) 
         {
-            pesoAtual += cromossomo[i] * peso[i];
+            pesoAcumulado += cromossomo[i] * peso[i];
         }
-        return pesoAtual;
+        return pesoAcumulado;
+    }
+    
+    public int getValor(){
+        int valorAcumulado = 0;
+        for (int i = 0; i < valor.length; i++) 
+        {
+            valorAcumulado += cromossomo[i] * valor[i];
+        }
+        return valorAcumulado;
     }
     
     public int getTamanhoCromossomo() 
@@ -73,26 +82,29 @@ public class Individuo
         return cromossomo[pos];
     }
     
-    public String resultadoIndividuo(){
-        double somatoria = 0.0;
-        for (int i = 0; i < valor.length; i++) 
-        {
-            somatoria += cromossomo[i] * valor[i];
-        }
+    public String getItensMochila(){
+         String resultado = "";
+        resultado += "Itens: ";
         
-        String resultado = "Peso: " +this.getPeso() + " Valor: ";
-        resultado += String.valueOf(somatoria);
-        resultado += " Itens: ";
         for(int i = 0; i < cromossomo.length; ++i){
             resultado+= String.valueOf(cromossomo[i]);
             resultado+= " ";
-//            if(cromossomo[i] == 1){
-//                resultado += String.valueOf(i+1);
-//                if(i != cromossomo.length-1){
-//                    resultado += " - ";
-//                }
-//            }
         }
         return resultado;
     }
+    
+    public String resultadoIndividuo(){ 
+        int valor = this.getValor(); 
+        
+        String resultado = "Peso: " +this.getPeso() + " Valor: "; 
+        resultado += String.valueOf(valor); 
+        resultado += " Itens: "; 
+        for(int i = 0; i < cromossomo.length; ++i){ 
+            resultado+= String.valueOf(cromossomo[i]); 
+            resultado+= " "; 
+        } 
+        return resultado; 
+    } 
+    
+
 }

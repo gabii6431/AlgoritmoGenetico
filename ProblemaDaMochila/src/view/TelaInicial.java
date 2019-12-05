@@ -33,8 +33,6 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         btnExecutar.setEnabled(false);
         outputCaminhoArq.setEditable(false);
-        outputAG.setEditable(false);
-        outputPD.setEditable(false);
     }
 
     /**
@@ -52,7 +50,6 @@ public class TelaInicial extends javax.swing.JFrame {
         outputCaminhoArq = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         btnExecutar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -61,12 +58,16 @@ public class TelaInicial extends javax.swing.JFrame {
         inputTamPopulacao = new javax.swing.JTextField();
         inputTaxaMutacao = new javax.swing.JTextField();
         inputNumGeracoes = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        outputPD = new javax.swing.JTextPane();
-        txtTempoPD = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         txtTempoAG = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        outputAG = new javax.swing.JTextArea();
+        txtTempoPD = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtValorAG = new javax.swing.JLabel();
+        txtPesoAG = new javax.swing.JLabel();
+        txtValorPD = new javax.swing.JLabel();
+        txtPesoPD = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,11 +92,8 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel3.setText("Programação dinâmica");
-
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabel4.setText("Algoritmo genético");
+        jLabel4.setText("Alg. Genético");
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel6.setText("Parâmetros AG");
@@ -106,15 +104,29 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel9.setText("Número de gerações");
 
-        jScrollPane1.setViewportView(outputPD);
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setText("Maior valor");
 
-        txtTempoPD.setText("( )");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel5.setText("Tempo de execução");
 
-        txtTempoAG.setText("( )");
+        jLabel11.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel11.setText("Programação Dinâmica");
 
-        outputAG.setColumns(20);
-        outputAG.setRows(5);
-        jScrollPane3.setViewportView(outputAG);
+        txtTempoAG.setText("tempoAG");
+
+        txtTempoPD.setText("tempoPD");
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel12.setText("Peso total");
+
+        txtValorAG.setText("valorAG");
+
+        txtPesoAG.setText("pesoAG");
+
+        txtValorPD.setText("valorPD");
+
+        txtPesoPD.setText("pesoPD");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,29 +135,13 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addComponent(jLabel1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTempoAG))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTempoPD)))
-                        .addGap(0, 3, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(inputTamPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(inputTaxaMutacao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,21 +156,47 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addComponent(outputCaminhoArq)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnPesquisar))
-                            .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel11))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTempoAG)
+                                    .addComponent(txtPesoAG))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPesoPD)
+                                    .addComponent(txtTempoPD)
+                                    .addComponent(txtValorPD))
+                                .addGap(71, 71, 71))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(30, 415, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(95, 95, 95)
+                                .addComponent(jLabel1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(119, 119, 119)
+                                .addComponent(btnExecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(125, 125, 125)
+                                .addComponent(txtValorAG)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnExecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3)
-                .addGap(12, 12, 12))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,21 +220,28 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(inputTamPopulacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputNumGeracoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputTaxaMutacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(btnExecutar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtTempoAG))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabel5)
+                    .addComponent(txtTempoAG)
                     .addComponent(txtTempoPD))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtPesoPD)
+                    .addComponent(txtPesoAG))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValorAG)
+                    .addComponent(jLabel10)
+                    .addComponent(txtValorPD))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,8 +256,8 @@ public class TelaInicial extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         pack();
@@ -261,29 +290,38 @@ public class TelaInicial extends javax.swing.JFrame {
         int numGeracoes= Integer.valueOf(inputNumGeracoes.getText());
 
         AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao, taxaMutacao, this.pesoItens, this.valorItens, this.capacidadeMochila, this.quantidadeItens);
+        String[] resultado = ag.mostraResultado();
+        System.out.println("Pop inicial");
+        for (int i = 0; i < resultado.length; i++) {
+            System.out.print("["+i+"]");
+            System.out.println(resultado[i]);
+        }
         long start_genetico = System.currentTimeMillis();
         ag.evoluir(numGeracoes);
         long tempo_genetico = System.currentTimeMillis() - start_genetico;
-        txtTempoAG.setText("( "+String.valueOf(tempo_genetico)+" ms )");
-        String[] resultado = ag.mostraResultado();
-        outputAG.setText("");
+        txtTempoAG.setText(String.valueOf(tempo_genetico)+" ms");
+        txtPesoAG.setText(ag.getPesoSolucao());
+        txtValorAG.setText(ag.getValorSolucao());
+        
+        resultado = ag.mostraResultado();
         System.out.println("Algoritmo Genetico");
         for (int i = 0; i < resultado.length; i++) {
             System.out.print("["+i+"]");
             System.out.println(resultado[i]);
-//            outputAG.append(resultado[i]);
-//            outputAG.append("\n");;
         }
+        
         
         ProgramacaoDinamica pd = new ProgramacaoDinamica (this.pesoItens, this.valorItens, this.capacidadeMochila, this.quantidadeItens);
         long start_dinamico = System.currentTimeMillis();
         pd.executaAlgoritmo();
         long tempo_dinamico = System.currentTimeMillis() - start_dinamico;
-        System.out.println("\nProgramção dinamica: ");
-        System.out.println(pd.mostraResultado());
-        txtTempoPD.setText("( "+String.valueOf(tempo_dinamico)+" ms )");
-//        outputPD.setText(pd.mostraResultado());
         
+        System.out.println("");
+        System.out.println(ag.imprimeMelhorIndividuo());
+        
+        txtTempoPD.setText(String.valueOf(tempo_dinamico)+" ms");
+        txtPesoPD.setText(pd.getPesoSolucao());
+        txtValorPD.setText(pd.getValorSolucao());
         
     }//GEN-LAST:event_btnExecutarActionPerformed
 
@@ -324,42 +362,18 @@ public class TelaInicial extends javax.swing.JFrame {
     
     
     public void trataArquivo(){
-//        /*
-//        Ordem do arquivo:
-//           -capacidade mochila
-//           -quantidade de itens
-//           -vetor de pessos
-//           -vetor de valores
-//       */
-//        try {
-//            FileReader arq = new FileReader(url);
-//            BufferedReader lerArq = new BufferedReader(arq);
-//            capacidadeMochila = Integer.parseInt(lerArq.readLine()); // lê a primeira linha
-//            quantidadeItens = Integer.parseInt(lerArq.readLine()); // lê a segunda linha
-//            String[] stringPesos = lerArq.readLine().split(" ");
-//            String[] stringValores = lerArq.readLine().split(" ");
-//            
-//            pesoItens = new int[quantidadeItens];
-//            valorItens = new int[quantidadeItens];
-//    
-//            int valor = stringValores.length;
-//            for (int i = 0; i < stringValores.length; i++) {
-//                pesoItens[i] = Integer.parseInt(stringPesos[i]);
-//                valorItens[i] = Integer.parseInt(stringValores[i]);
-//            }
-//            
-//            arq.close();
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-//        } 
         try {
-            // Le o arquivo 3
+            /*
+            Ordem do arquivo:
+                -quantidade de itens
+               -capacidade mochila
+               -v1 p1 ...
+               -vn pn
+           */
             FileReader arq = new FileReader(url);
             BufferedReader lerArq = new BufferedReader(arq);
-            capacidadeMochila = Integer.parseInt(lerArq.readLine()); // lê a primeira linha
-            quantidadeItens = Integer.parseInt(lerArq.readLine()); // lê a segunda linha
+            quantidadeItens = Integer.parseInt(lerArq.readLine()); 
+            capacidadeMochila = Integer.parseInt(lerArq.readLine()); 
             
             pesoItens = new int[quantidadeItens];
             valorItens = new int[quantidadeItens];
@@ -388,20 +402,23 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField inputTamPopulacao;
     private javax.swing.JTextField inputTaxaMutacao;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea outputAG;
     private javax.swing.JTextField outputCaminhoArq;
-    private javax.swing.JTextPane outputPD;
+    private javax.swing.JLabel txtPesoAG;
+    private javax.swing.JLabel txtPesoPD;
     private javax.swing.JLabel txtTempoAG;
     private javax.swing.JLabel txtTempoPD;
+    private javax.swing.JLabel txtValorAG;
+    private javax.swing.JLabel txtValorPD;
     // End of variables declaration//GEN-END:variables
 }
